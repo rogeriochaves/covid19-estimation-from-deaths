@@ -1,0 +1,37 @@
+version: 2.1
+executors:
+  python-executor:
+    docker:
+      - image: circleci/python:3.6.4
+    working_directory: ~/repo
+jobs:
+  estimate:
+    executor: python-executor
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - run:
+          name: estimate
+          command: |
+            . venv/bin/activate
+            python estimate.py
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - estimate
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 1 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - estimate
