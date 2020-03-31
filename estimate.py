@@ -1,9 +1,6 @@
-import pymc3 as pm
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import math
-import scipy.stats
 import datetime
 import collections
 import os
@@ -114,7 +111,7 @@ gunzip caso.csv.gz;
 """)
 
 df = pd.read_csv("caso.csv")
-df.head()
+print("Samples:", df.head())
 
 states_with_death = df[(df.deaths > 0) & (df.place_type == "state")]
 states_with_death = list(np.unique(states_with_death["state"])) + ["BR"]
