@@ -141,5 +141,6 @@ requests.put(
     "https://api.myjson.com/bins/1ddqtw",
     headers={"Content-Type": "application/json"},
     data=json.dumps(result),
+    timeout=None
 )
 print("Saved to https://api.myjson.com/bins/1ddqtw")
